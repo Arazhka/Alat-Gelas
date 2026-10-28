@@ -87,7 +87,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .table-wrap{overflow-x:auto;border:1px solid rgba(26,158,150,.4);border-radius:16px;background:rgba(255,255,255,.85);box-shadow:0 10px 30px rgba(26,158,150,.14)}
 table{width:100%;border-collapse:collapse;font-size:clamp(.8rem,1.9vw,1rem);font-variant-numeric:tabular-nums}
 th,td{padding:clamp(8px,1.4vw,14px) clamp(9px,1.8vw,18px);text-align:left;white-space:nowrap}
-th{background:linear-gradient(110deg,#148a83,var(--tosca-2));color:#fff;font-weight:600}
+th{background:var(--tosca);color:#fff;font-weight:600}
 tbody tr{transition:background .15s}
 tbody tr:nth-child(even){background:var(--tosca-soft)}
 tbody tr:hover{background:#c9ece9}
@@ -113,6 +113,63 @@ tfoot td{font-weight:700;border-top:2px solid var(--tosca)}
 #duck.talk .quack{opacity:1;transform:translateX(-50%) scale(1)}
 #duck .sp{position:absolute;left:46px;top:36px;width:6px;height:6px;border-radius:50%;background:var(--tosca-2)}
 
+/* Tabel edit, form HP, QR */
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;align-items:center}
+.inp{flex:1;min-width:0;padding:11px 14px;font:500 1rem "Space Grotesk",Arial,sans-serif;color:#000;background:rgba(255,255,255,.9);border:1.5px solid rgba(26,158,150,.5);border-radius:14px;outline:none;width:100%}
+.inp:focus{border-color:var(--tosca);box-shadow:0 0 0 3px rgba(26,158,150,.2)}
+.toolbar>.inp{flex:1 1 200px;width:auto;border-radius:999px}
+.btn{padding:10px 16px;font:600 .9rem "Space Grotesk",Arial,sans-serif;color:var(--tosca-dark);background:rgba(255,255,255,.9);border:1.5px solid rgba(26,158,150,.55);border-radius:999px;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s}
+.btn:hover,.btn:focus-visible{background:var(--tosca);color:#fff;outline:none}
+.btn.pri{background:var(--tosca);color:#fff}
+.btn.big{width:100%;padding:14px;font-size:1.05rem;margin-top:14px}
+.tall{max-height:68vh;overflow:auto}
+.table-wrap thead th{position:sticky;top:0;z-index:1}
+td.ed{cursor:text}
+td.ed:focus{outline:2px solid var(--tosca);outline-offset:-2px;background:#fff;border-radius:6px}
+td.ed[data-f=name]{white-space:normal;min-width:190px}
+.del{width:30px;height:30px;font-size:1.1rem;line-height:1;color:#a33;background:none;border:1.5px solid rgba(170,50,50,.35);border-radius:50%;cursor:pointer}
+.del:hover{background:#a33;color:#fff}
+tr.flash td{animation:flash 1.8s ease}
+@keyframes flash{0%,60%{background:#fff3b0}100%{background:transparent}}
+.neg{color:#b00020;font-weight:700}
+.note{margin-top:10px;font-size:.82rem;color:#444}
+.syncchip{display:inline-block;padding:4px 12px;font-size:.78rem;font-weight:600;color:#444;background:#f1f1f1;border-radius:999px}
+.syncchip.ok{color:#0b4a46;background:#d6f3ef}
+.syncchip.busy{color:#7a5a00;background:#fff3c4}
+.syncchip.err{color:#8a1c1c;background:#fde0e0}
+.formpage{max-width:520px}
+.card{padding:20px;background:rgba(255,255,255,.92);border:1.5px solid rgba(26,158,150,.45);border-radius:22px;box-shadow:0 10px 30px rgba(26,158,150,.16)}
+.card label{display:block;margin:14px 0 6px;font-size:.88rem;font-weight:700}
+.card label:first-child{margin-top:0}
+.ferr{min-height:1.2em;margin-top:8px;font-size:.85rem;font-weight:600;color:#b00020}
+.fhint{margin-top:6px;font-size:.82rem;color:#333}
+.done{padding:22px;text-align:center;background:#e8f6f5;border:1.5px solid var(--tosca);border-radius:22px}
+.done .ok{display:inline-flex;width:56px;height:56px;margin-bottom:8px;align-items:center;justify-content:center;font-size:1.8rem;color:#fff;background:var(--tosca);border-radius:50%;box-shadow:0 0 22px rgba(26,158,150,.5)}
+.done p{margin:6px 0}
+.hidden{display:none}
+.modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(8,40,38,.55);backdrop-filter:blur(4px)}
+.modal.hidden{display:none}
+.sheet{width:100%;max-width:420px;max-height:92vh;overflow:auto;padding:22px;color:#000;background:#fff;border:1.5px solid var(--tosca);border-radius:22px;box-shadow:0 0 40px rgba(26,158,150,.4);animation:enter .35s cubic-bezier(.2,.8,.2,1)}
+.sheet h3{margin:0 0 4px;font-size:1.15rem}
+.sheet .sub{margin-bottom:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.qr{width:100%;max-width:300px;margin:8px auto;padding:10px;background:#fff;border:1px solid #ddd;border-radius:12px}
+.qr svg{display:block;width:100%;height:auto}
+.urlline{word-break:break-all;font-size:.75rem;color:#444}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);z-index:250;max-width:90vw;padding:10px 18px;color:#fff;background:#0b4a46;border-radius:999px;font:600 .9rem "Space Grotesk",Arial,sans-serif;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+.toast.on{opacity:1;transform:translateX(-50%)}
+#printArea{display:none}
+@media print{
+  body>*:not(#printArea){display:none!important}
+  body::before{display:none}
+  body{background:#fff}
+  #printArea{display:block!important;padding:24px;text-align:center;color:#000;font-family:Arial,sans-serif}
+  #printArea h1{font-size:28px;margin-bottom:12px}
+  #printArea .qrp{width:70%;max-width:420px;margin:0 auto}
+  #printArea .qrp svg{width:100%;height:auto}
+  #printArea p{margin-top:10px;font-size:14px;word-break:break-all}
+}
+
 /* Transisi */
 .fx{position:fixed;inset:0;z-index:100;overflow:hidden}
 .bw{position:absolute;top:0;bottom:0;width:50.5%;background:repeating-linear-gradient(90deg,#c99a5b 0 14px,#bd8d50 14px 16px)}
@@ -133,6 +190,7 @@ tfoot td{font-weight:700;border-top:2px solid var(--tosca)}
   .page.enter{animation:none}
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 </head>
 <body>
 <header class="header">
@@ -199,69 +257,375 @@ tfoot td{font-weight:700;border-top:2px solid var(--tosca)}
 <main id="stok" class="page hidden">
   <button class="back" data-go="">&larr; Kembali</button>
   <h2>Stok Alat Gelas</h2>
-  <p class="sub">Data contoh. Nantinya diganti dengan data dari Excel.</p>
-  <div class="table-wrap"><table>
-    <thead><tr><th>No</th><th>Kode</th><th>Nama Alat</th><th>Ukuran</th><th class="num">Jumlah</th><th>Lokasi</th></tr></thead>
+  <p class="sub">Data dari Masterlist Excel (Juli 2026). Stok = Total &minus; Aktif.</p>
+  <div class="toolbar">
+    <button class="btn pri" data-qr="stok">QR input stok</button>
+    <button class="btn" id="add-item">+ Tambah alat</button>
+    <button class="btn" id="csv-items">Unduh CSV</button>
+    <span class="syncchip"></span>
+  </div>
+  <div class="toolbar"><input id="q-stok" class="inp" placeholder="Cari nama alat..."></div>
+  <div class="table-wrap tall"><table>
+    <thead><tr><th>No</th><th>Nama Alat</th><th class="num">Aktif</th><th class="num">Stok</th><th class="num">Total</th><th></th></tr></thead>
     <tbody id="stok-body"></tbody>
     <tfoot id="stok-foot"></tfoot>
   </table></div>
+  <p class="note">Ketuk nama atau angka di tabel untuk mengubahnya, lalu ketuk di luar sel.</p>
 </main>
 
 <main id="pecah" class="page hidden">
   <button class="back" data-go="">&larr; Kembali</button>
   <h2>Alat Gelas Pecah</h2>
-  <p class="sub">Data contoh. Nantinya diganti dengan data dari Excel.</p>
+  <p class="sub">Catatan pemecahan dari Excel (2025) dan catatan baru dari form HP. Catatan baru otomatis mengurangi Aktif.</p>
+  <div class="toolbar">
+    <button class="btn pri" data-qr="pecah">QR input pecah</button>
+    <button class="btn" id="add-rec">+ Tambah catatan</button>
+    <button class="btn" id="csv-recs">Unduh CSV</button>
+    <span class="syncchip"></span>
+  </div>
+  <div class="toolbar"><input id="q-pecah" class="inp" placeholder="Cari nama, bulan, analis..."></div>
   <h3>Daftar alat gelas pecah</h3>
-  <div class="table-wrap"><table>
-    <thead><tr><th>No</th><th>Tanggal</th><th>Kode</th><th>Nama Alat</th><th class="num">Jumlah Pecah</th><th>Penyebab</th><th>Pelapor</th></tr></thead>
+  <div class="table-wrap tall"><table>
+    <thead><tr><th>No</th><th>Bulan</th><th>Nama Alat</th><th class="num">Qty</th><th>Analis</th><th></th></tr></thead>
     <tbody id="pecah-body"></tbody>
     <tfoot id="pecah-foot"></tfoot>
   </table></div>
   <h3>Database alat gelas aktif</h3>
-  <div class="table-wrap"><table>
-    <thead><tr><th>No</th><th>Kode</th><th>Nama Alat</th><th>Ukuran</th><th class="num">Stok Awal</th><th class="num">Pecah</th><th class="num">Aktif</th></tr></thead>
+  <div class="toolbar"><input id="q-aktif" class="inp" placeholder="Cari alat aktif..."></div>
+  <div class="table-wrap tall"><table>
+    <thead><tr><th>No</th><th>Nama Alat</th><th class="num">Aktif Awal</th><th class="num">Pecah Baru</th><th class="num">Aktif Sekarang</th></tr></thead>
     <tbody id="aktif-body"></tbody>
     <tfoot id="aktif-foot"></tfoot>
   </table></div>
 </main>
 
+<main id="form-pecah" class="page formpage hidden">
+  <h2>Input Alat Gelas Pecah</h2>
+  <p class="sub">Isi inisial 3 huruf dan alat gelas yang pecah.</p>
+  <form id="f-pecah" class="card" novalidate autocomplete="off">
+    <label for="fp-ini">Inisial (3 huruf)</label>
+    <input id="fp-ini" class="inp" maxlength="3" autocapitalize="characters" autocomplete="off" placeholder="Contoh: DAA">
+    <label for="fp-name">Alat gelas yang pecah</label>
+    <input id="fp-name" class="inp" list="dl-items" placeholder="Ketik untuk mencari...">
+    <label for="fp-qty">Jumlah</label>
+    <input id="fp-qty" class="inp" type="number" min="1" value="1" inputmode="numeric">
+    <p class="ferr" id="fp-err" role="alert"></p>
+    <button class="btn pri big" type="submit">Kirim</button>
+  </form>
+  <div id="fp-done" class="done hidden"></div>
+  <p class="row"><span class="syncchip"></span><button class="btn" data-go="pecah">Lihat tabel</button></p>
+</main>
+
+<main id="form-stok" class="page formpage hidden">
+  <h2>Input Stok Alat Gelas</h2>
+  <p class="sub">Isi nama alat gelas dan totalnya.</p>
+  <form id="f-stok" class="card" novalidate autocomplete="off">
+    <label for="fs-name">Nama alat gelas</label>
+    <input id="fs-name" class="inp" list="dl-items" placeholder="Ketik untuk mencari...">
+    <p class="fhint" id="fs-info"></p>
+    <label for="fs-qty">Total (jumlah yang ditambahkan)</label>
+    <input id="fs-qty" class="inp" type="number" min="1" inputmode="numeric" placeholder="Contoh: 10">
+    <p class="ferr" id="fs-err" role="alert"></p>
+    <button class="btn pri big" type="submit">Kirim</button>
+  </form>
+  <div id="fs-done" class="done hidden"></div>
+  <p class="row"><span class="syncchip"></span><button class="btn" data-go="stok">Lihat tabel</button></p>
+</main>
+
+<datalist id="dl-items"></datalist>
+<div id="modal" class="modal hidden"><div class="sheet" id="sheet"></div></div>
+<div id="toast" class="toast"></div>
+<div id="printArea"></div>
+
 <footer class="footer"><p>&copy; 2026 Alat Gelas Andev</p><p class="credit">Info lebih lanjut hubungi PIC alat gelas (DAA, MRA, dan MYK)</p></footer>
 
 <script>
-var stok=[
-["GL-001","Gelas Beaker","100 mL",25,"Lemari A1"],
-["GL-002","Gelas Beaker","250 mL",20,"Lemari A1"],
-["GL-003","Erlenmeyer","250 mL",18,"Lemari A2"],
-["GL-004","Labu Ukur","100 mL",12,"Lemari B1"],
-["GL-005","Gelas Ukur","50 mL",15,"Lemari B2"],
-["GL-006","Pipet Volume","10 mL",30,"Lemari C1"],
-["GL-007","Buret","50 mL",8,"Lemari C2"],
-["GL-008","Tabung Reaksi","16 x 150 mm",100,"Lemari D1"],
-["GL-009","Cawan Petri","90 mm",40,"Lemari D2"],
-["GL-010","Corong Gelas","75 mm",10,"Lemari B3"]];
-var pecah=[
-["05-10-2026","GL-001","Gelas Beaker 100 mL",2,"Terjatuh saat praktikum","Andi"],
-["07-10-2026","GL-003","Erlenmeyer 250 mL",1,"Retak saat dipanaskan","Sari"],
-["12-10-2026","GL-006","Pipet Volume 10 mL",3,"Patah saat dibersihkan","Budi"],
-["15-10-2026","GL-008","Tabung Reaksi",8,"Terjatuh dari rak","Dewi"],
-["20-10-2026","GL-009","Cawan Petri 90 mm",2,"Terbentur saat sterilisasi","Rina"],
-["26-10-2026","GL-005","Gelas Ukur 50 mL",1,"Terjatuh saat praktikum","Andi"]];
+var SYNC_URL="https://script.google.com/macros/s/AKfycbzRv2TYUqx9jUr4TMp9VyaCiu78iaHC3LHk4Ve_maZHoj_Pv8m_qIEbTkn8_83Y4K2x/exec"; /* Tempel URL Web app Google Apps Script di sini (berakhir /exec). Kosong = mode lokal. */
+var SEED={"items":[["Alu",3,5],["Beaker Glass 100 mL",6,26],["Beaker Glass 250 mL",21,31],["Tabung Centrifuge 15 ml",43,193],["Tabung Centrifuge 50 ml",42,142],["Botol Schoot 2000 mL",14,25],["Botol Schoot 1000 mL",75,89],["Botol Schoot 50 mL",22,22],["Botol Schoot 100 mL",7,7],["Botol Schoot 250 mL",13,13],["Botol Schoot 500 mL",23,29],["Labu Ukur(Clear) 1 ml",5,5],["Labu Ukur(Clear) 2 ml",4,4],["Labu Ukur(Clear) 5ml",8,14],["Labu Ukur(Clear) 10ml",32,42],["Labu Ukur (Clear) 20ml",58,88],["Labu Ukur (Clear) 25ml",95,145],["Labu Ukur (Clear) 50 ml",10,10],["Labu Ukur (Clear) 100ml",21,21],["Labu Ukur (Clear) 200ml",10,10],["Labu Ukur (Clear) 250ml",11,14],["Labu Ukur (Clear) 500ml",2,11],["Labu Ukur (Clear) 1000ml",2,4],["Labu Ukur (Clear) 2000ml",1,1],["Labu Ukur (Amber) 50ml",40,50],["Labu Ukur (Amber) 500ml",2,2],["Labu Ukur (Amber) 250ml",4,4],["Labu Ukur (Amber) 200ml",9,19],["Labu Ukur (Amber) 100ml",51,51],["Labu Ukur (Amber) 25ml",3,3],["Labu Ukur (Amber) 20ml",15,35],["Labu Ukur (Amber) 10ml",30,30],["Labu Ukur Plastik 100 ml",0,2],["Pipet Volume 0.5 ml",2,12],["Pipet Volume 1.0 ml",3,13],["Pipet Volume 2.0 ml",6,11],["Pipet Volume 3.0 ml",2,9],["Pipet Volume 4.0 ml",6,6],["Pipet Volume 5.0 ml",6,16],["Pipet Volume 6.0 ml",5,5],["Pipet Volume 10.0 ml",5,5],["Pipet Volume 20.0 ml",2,11],["Pipet Volume 25.0 ml",4,7],["Pipet Volume 50.0 ml",2,2],["Pipet Ukur 1.0 ml",2,11],["Pipet Ukur 5.0 ml",3,3],["Pipet Ukur 10.0 ml",8,8],["Pipet Ukur 25.0 ml",1,4],["Gelas Ukur 5 mL",3,3],["Gelas Ukur 10 mL",2,9],["Gelas Ukur 25 mL",2,10],["Gelas Ukur 50 mL",2,9],["Gelas Ukur 100 mL",1,11],["Gelas Ukur 250 mL",1,10],["Gelas Ukur 500 mL",1,6],["Gelas Ukur 1000 mL",1,3],["Tabung Reaksi 10 ml",18,38],["Tabung Reaksi Amber 10 ml",7,7],["Labu Alas Bulat 500 ml",2,5],["Labu Alas Datar 500 ml",1,1],["Piknometer 5 ml",0,2],["Piknometer 10 ml",3,6],["Botol Timbang",8,12],["Beaker Glass 100 mL Tall Form",6,11],["Beaker Glass 300 mL Tall Form",2,12],["Beaker Glass 50 mL",15,41],["Beaker Plastik 250 ml",1,4],["Cawan Petri Plastik",15,55],["Beaker Glass 1000 ml",3,4],["Beaker Glass 2000 ml",1,1],["Botol Pereaksi Reagen Amber",0,1],["Botol Pereaksi Reagen Clear",5,8],["Lumpang",3,5],["Bulp Biru",8,11],["Bulp Merah",2,4],["Botol Schoot 5000 mL",4,6],["Cawan Petri Kaca",17,24],["Cawan Porselain Penguap kecil",4,7],["Cawan Kaca Penguap Besar",2,3],["Kurs Porselain Kecil",5,10],["Kurs Porselain Besar",1,1],["Syringe Kaca",2,5],["Corong Pisah Kaca 100 ml",6,6],["Corong Pisah Kaca 125 ml",0,4],["Corong Pisah Kaca 250 ml",0,0],["Klem Statif Buret",3,4],["Gelas Ukur Plastik 500 ml",1,2],["Gelas Ukur Plastik 1000 ml",1,2],["Gelas Ukur Plastik 2000 ml",0,1],["Beaker Glass 600 ml",9,37],["Rak Tabung Centrifuge 50 ml",2,2],["Rak Tabung Centrifuge 15 ml",1,1],["Tabung Nessler 50 ml",5,5],["Kaca Arloji Kecil",1,1],["Kaca Arloji Besar",1,1],["Buret 10 ml Clear",1,1],["Buret 10 ml Amber",1,1],["Buret 25 ml Amber",1,1],["Buret 50 ml Amber",2,2],["Visometer Kapiler 513-10",1,1],["Visometer Kapiler 513-13",1,1],["Kromatografi Kolom",1,1],["Set Alat Destilasi",1,1],["Erlenmeyer 100 ml",3,3],["Erlenmeyer 100 ml Asah ulir + tutup",0,0],["Erlenmeyer 250 ml",3,3],["Erlenmeyer 250 ml Asah ulir + tutup",0,0],["Erlenmeyer 500 ml",9,9],["Erlenmeyer 1000 ml",1,1],["Erlenmeyer 5000 ml",1,1],["Erlenmeyer + Tutup Berlubang",0,0],["Corong Plastik",9,9],["Corong Kaca D 8 cm",1,1],["Corong Kaca D 10 cm",8,8],["Corong Kaca D 5.5 cm",0,0],["Corong Kaca D 7 cm",2,2],["Tang Kurs",1,2],["Syringe Plastik 50 ml",1,3],["Pipa Kapiler Melting Point",2,6],["Rak Tabung Reaksi",2,2],["Teko Plastik 1000 ml",9,10],["Teko Plastik 2000 ml",3,3],["Teko Plastik 3000 ml",3,3],["Teko Plastik 5000 ml",2,2],["Cawan Platina",0,0],["Botol PVT Disolusi 10L",1,1],["Beaker Plastik 100 ml",0,12],["Chamber KLT",1,1],["Spray Kit KLT",1,1],["Batang Magnetic",0,2],["Batang Pengaduk Kaca",3,6],["Botol Semprot Aquadest",0,0],["Botol Semprot Ethanol",0,0],["Botol Semprot 1000 ml",0,1],["Kaki Tiga + Penyangga",0,2],["Kassa Asbes",0,10],["Magnetic Stirrer 1.5 cm",0,1],["Magnetic Stirrer 10 cm",0,0],["Magnetic Stirrer 3 cm",0,2],["Magnetic Stirrer 4 cm",0,7],["Magnetic Stirrer 8 cm",0,1],["Magnetic Stirrer Plastik 2 cm",0,0],["Magnetic Stirrer Plastik 5 cm",0,1],["Magnetic Stirrer PTFE Coating",0,0],["Ose + Batang",0,1],["Penampang Vakum Fase Gerak",0,2],["Pipet Tetes Kaca",0,1],["Pipet Tetes Plastik",0,1],["Sikat Botol",0,0],["Spatula Double Spoon",0,1],["Spatula Kecil",0,13],["Spatula Sedang",0,0],["Spatula Single Spoon",0,1],["Thermometer",3,6],["Penjepit Kayu",1,1],["Labu Alas Bulat 2 Lubang",1,1],["Viscometer Kapiler 525-11",1,1],["Viscometer Ubelohde Size 1B",1,1],["Viscometer Ubelohde Size 2B",1,1],["Viscometer Ubelohde Size 1",1,1],["Klem Soxhlet",0,1],["Erlenmeyer 250 ml Alas X",0,0],["Tabung Centrifuge Kaca 15 ml",0,12]],"rec":[["Januari","Labu Ukur (Clear) 100ml",1,"NA"],["Januari","Labu Ukur (Amber) 25ml",1,"NA"],["Januari","Labu Ukur (Clear) 50 ml",1,"NA"],["Januari","Labu Ukur (Clear) 100ml",1,"Ellina"],["Februari","Pipet Volume 2.0 ml",2,"Mey"],["Februari","Beaker Glass 250 ml",3,"NA"],["Februari","Beaker Glass 400 ml",1,"NA"],["Februari","Erlenmeyer 100 ml",1,"NA"],["Februari","Labu Ukur (Amber) 10ml",1,"Ardhia"],["Februari","Gelas Ukur 25mL",1,"NA"],["Februari","Labu Ukur (Clear) 50 ml",4,"NA"],["Februari","Labu Ukur (Clear) 10 ml",2,"NA"],["Februari","Labu Ukur (Clear) 20ml",3,"NA"],["Februari","Labu Ukur (Amber) 10ml",1,"NA"],["Februari","Labu Ukur (Amber) 50ml",1,"NA"],["Februari","Labu Ukur (Clear) 100ml",1,"NA"],["Februari","Beaker Glass 100 mL",2,"NA"],["Februari","Beaker Glass 250 ml",3,"NA"],["Februari","Beaker Glass 600 ml",1,"NA"],["Februari","Erlenmeyer 100 ml",2,"NA"],["Maret","Beaker Glass 100 mL",2,"NA"],["Maret","Beaker Glass 250 ml",2,"NA"],["Maret","Labu Ukur (Clear) 50 ml",1,"NA"],["Maret","Erlenmeyer 100 ml",1,"NA"],["Maret","Labu Ukur (Clear) 10 ml",3,"NA"],["Maret","Labu Ukur (Amber) 20ml",1,"NA"],["Maret","Labu Ukur (Clear) 5 ml",1,"NA"],["Maret","Cawan Porselain Penguap kecil",1,"NA"],["Maret","Erlenmeyer 250mL",3,"NA"],["Maret","Labu Ukur (Clear) 100ml",1,"NA"],["April","Labu Ukur (Clear) 50 ml",1,"Ellina"],["April","Labu Ukur (Clear) 50 ml",1,"NA"],["April","Beaker Glass 100 mL",2,"NA"],["April","Beaker Glass 250 ml",1,"NA"],["April","Labu Ukur(Clear) 2 ml",1,"NA"],["April","Pipet Volume 4.0 ml",1,"NA"],["April","Pipet Volume 6.0 ml",1,"Mey"],["April","Tabung Reaksi 10 ml",1,"Mey"],["April","Labu Ukur (Amber) 25ml",1,"Esa"],["April","Labu Ukur (Clear) 10 ml",1,"Sri"],["Juni","Pipet Volume 1.0 ml",1,"NA"],["Juli","Labu Ukur (Clear) 20ml",1,"Ellina"],["Juli","Labu Ukur (Clear) 50 ml",1,"Ellina"],["Juli","Labu Ukur (Clear) 10 ml",1,"Rido"],["Juli","Labu Ukur (Clear) 50 ml",1,"Ajeng"],["Juli","Labu Ukur (Amber) 50ml",1,"Ajeng"],["Juli","Pipet Volume 10.0 ml",1,"Sri"],["Agustus","Labu Ukur (Amber) 50ml",1,"NA"],["Agustus","Labu Ukur (Amber) 100ml",1,"Rido"],["Agustus","Botol Timbang",1,"Arif"],["September","Penampang Vakum Fase Gerak",1,"Intan"],["September","Labu Ukur (Clear) 10 ml",1,"Syaiful"],["September","Tutup Piknometer 10 ml",1,"Nurul"],["September","Labu Ukur (Clear) 100 ml",1,"Syaiful"],["September","Labu Ukur (Amber) 10ml",1,"Syaiful"],["Oktober","Labu Ukur (Clear) 1000ml",1,"NA"],["Oktober","Labu Ukur (Clear) 100 ml",9,"NA"],["Oktober","Labu Ukur (Amber) 100ml",2,"NA"],["Oktober","Labu Ukur (Clear) 50 ml",7,"NA"],["Oktober","Labu Ukur (Amber) 25ml",2,"NA"],["Oktober","Labu Ukur (Clear) 10 ml",1,"NA"],["Oktober","Labu Ukur (Amber) 20ml",1,"NA"],["Oktober","Beaker Glass 250 ml",1,"NA"],["Oktober","Erlenmeyer 250 ml Asah",1,"NA"],["Oktober","Tabung Reaksi 10 ml",1,"NA"],["Oktober","Pipet Volume 2.0 ml",2,"NA"],["Oktober","Pipet Volume 3.0 ml",1,"NA"],["Oktober","Pipet Ukur 5.0 ml",1,"NA"],["Oktober","Cawan Porselain Penguap kecil",1,"NA"],["Oktober","Corong Kaca D 7 cm",1,"NA"],["Oktober","Beaker Glass 50 mL",1,"NA"],["Oktober","Pipet Ukur 5.0 ml",1,"Ajeng"],["Oktober","Gelas Ukur 50 mL",1,"Sri"],["Oktober","Gelas Ukur 100 mL",1,"Sri"],["Oktober","Labu Ukur (Clear) 50 ml",1,"Intan"],["Oktober","Labu Ukur (Clear) 50 ml",1,"Syaiful"],["Oktober","Labu Ukur (Clear) 20ml",1,"Rido"],["November","Labu Ukur (Clear) 100 ml",1,"NA"],["November","Pipet Volume 1.0 ml",1,"Ajeng"],["November","Erlenmeyer 100 ml",1,"Ajeng"],["November","Beaker Glass 250 ml",1,"Mey"],["November","Pipet Volume 5.0 ml",1,"Nada"],["November","Labu Ukur (Clear) 5 ml",1,"NA"],["November","Labu Ukur (Clear) 100 ml",1,"NA"],["December","Gelas Ukur 50mL",1,"Arif"],["Februari","Labu Ukur (Clear) 20ml",5,"Yusuf"]]};
+var KEY="andev-gelas-v1",QKEY="andev-gelas-q1",state=null,curPage="home",toastT;
+var queue=[],dirty=false,serverReady=false,syncing=false,syncT;
 
-function row(cells,numFrom){return "<tr>"+cells.map(function(c,i){return "<td"+(numFrom!==undefined&&numFrom.indexOf(i)>-1?' class="num"':"")+">"+c+"</td>"}).join("")+"</tr>"}
-function sum(a,i){return a.reduce(function(s,r){return s+r[i]},0)}
+function seedState(){
+  var s={items:[],rec:[],nextItem:1,nextRec:1};
+  SEED.items.forEach(function(r){s.items.push({id:s.nextItem++,name:r[0],aktif:r[1],total:r[2]})});
+  SEED.rec.forEach(function(r){s.rec.push({id:s.nextRec++,bulan:r[0],name:r[1],qty:r[2],analis:r[3],item:null})});
+  return s;
+}
+function fixState(s){
+  var mi=0,mr=0;s.items.forEach(function(x){if(x.id>mi)mi=x.id});s.rec.forEach(function(x){if(x.id>mr)mr=x.id});
+  s.nextItem=Math.max(s.nextItem||0,mi+1);s.nextRec=Math.max(s.nextRec||0,mr+1);return s;
+}
+function load(){try{var t=localStorage.getItem(KEY);if(t){var s=JSON.parse(t);if(s&&s.items&&s.rec)return fixState(s)}}catch(e){}return seedState()}
+function saveLocal(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function persistQ(){try{localStorage.setItem(QKEY,JSON.stringify({queue:queue,dirty:dirty}))}catch(e){}}
+state=load();
+try{var q0=JSON.parse(localStorage.getItem(QKEY)||"null");if(q0&&SYNC_URL){queue=q0.queue||[];dirty=!!q0.dirty}}catch(e){}
 
-function build(){
-  document.getElementById("stok-body").innerHTML=stok.map(function(r,i){return row([i+1].concat(r),[4])}).join("");
-  document.getElementById("stok-foot").innerHTML='<tr><td colspan="4">Total</td><td class="num">'+sum(stok,3)+'</td><td></td></tr>';
-  document.getElementById("pecah-body").innerHTML=pecah.map(function(r,i){return row([i+1].concat(r),[4])}).join("");
-  document.getElementById("pecah-foot").innerHTML='<tr><td colspan="4">Total</td><td class="num">'+sum(pecah,3)+'</td><td colspan="2"></td></tr>';
-  var tp=0,ta=0;
-  document.getElementById("aktif-body").innerHTML=stok.map(function(r,i){
-    var p=pecah.filter(function(x){return x[1]===r[0]}).reduce(function(s,x){return s+x[3]},0);
-    tp+=p;ta+=r[3]-p;
-    return row([i+1,r[0],r[1],r[2],r[3],p,r[3]-p],[4,5,6]);
-  }).join("");
-  document.getElementById("aktif-foot").innerHTML='<tr><td colspan="4">Total</td><td class="num">'+sum(stok,3)+'</td><td class="num">'+tp+'</td><td class="num">'+ta+'</td></tr>';
+function pad(n){return ("000"+n).slice(-3)}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function norm(s){return String(s).toLowerCase().replace(/\s+/g," ").trim()}
+function findItem(id){return state.items.filter(function(x){return x.id===id})[0]}
+function findRec(id){return state.rec.filter(function(x){return x.id===id})[0]}
+function matchItem(st,name){var n=norm(name);return st.items.filter(function(x){return norm(x.name)===n})[0]}
+function pecahBaru(id){return state.rec.reduce(function(s,r){return r.item===id?s+(+r.qty||0):s},0)}
+function aktifNow(it){return it.aktif-pecahBaru(it.id)}
+function stokNow(it){return it.total-it.aktif}
+function monthLabel(){var d=new Date();return ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"][d.getMonth()]+" "+d.getFullYear()}
+function toast(msg){var t=document.getElementById("toast");t.textContent=msg;t.classList.add("on");clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove("on")},2600)}
+function intOf(txt,fb){var n=parseInt(String(txt).replace(/[^\d-]/g,""),10);return isNaN(n)?fb:n}
+function lastAnalis(){try{return localStorage.getItem("andev-analis")||""}catch(e){return""}}
+
+/* Operasi dari form HP */
+function applyOp(st,op){
+  var it=matchItem(st,op.name);
+  if(op.type==="stok"){
+    if(it)it.total+=op.qty;else st.items.push({id:st.nextItem++,name:op.name,aktif:0,total:op.qty});
+  }else if(op.type==="pecah"){
+    st.rec.push({id:st.nextRec++,bulan:op.bulan,name:it?it.name:op.name,qty:op.qty,analis:op.ini,item:it?it.id:null});
+  }
+}
+function submitOp(op){
+  applyOp(state,op);saveLocal();
+  if(SYNC_URL){queue.push(op);persistQ();scheduleSync(0)}
+  refreshUI();
+}
+
+/* Sinkronisasi (Google Apps Script) */
+function setChip(kind){
+  var m={local:["Mode lokal: data hanya di perangkat ini",""],ok:["Tersinkron","ok"],busy:["Menyinkronkan...","busy"],err:["Offline, dicoba lagi otomatis","err"]};
+  [].forEach.call(document.querySelectorAll(".syncchip"),function(c){c.textContent=m[kind][0];c.className="syncchip "+m[kind][1]});
+}
+function scheduleSync(ms){if(!SYNC_URL)return;clearTimeout(syncT);syncT=setTimeout(sync,ms||0)}
+function touch(){saveLocal();if(SYNC_URL){dirty=true;persistQ();scheduleSync(800)}}
+function api(body){return fetch(SYNC_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)}).then(function(r){return r.json()})}
+function pullSrv(){return fetch(SYNC_URL+(SYNC_URL.indexOf("?")>-1?"&":"?")+"t="+Date.now()).then(function(r){return r.json()})}
+function adopt(st){state=fixState(st);saveLocal();refreshUI()}
+function sync(){
+  if(!SYNC_URL||syncing)return;
+  syncing=true;setChip("busy");
+  var p;
+  if(!serverReady){
+    p=pullSrv().then(function(r){
+      if(!r||!r.ok)throw 0;
+      serverReady=true;
+      if(r.empty){dirty=true;queue=[];persistQ()}
+      else if(!dirty&&!queue.length)adopt(r.state);
+    });
+  }else if(dirty){
+    p=api({op:{type:"set",state:state}}).then(function(r){if(!r.ok)throw 0;dirty=false;queue=[];persistQ()});
+  }else if(queue.length){
+    p=api({op:queue[0]}).then(function(r){if(!r.ok)throw 0;queue.shift();persistQ();if(!queue.length)adopt(r.state)});
+  }else{
+    p=pullSrv().then(function(r){if(!r.ok)throw 0;if(r.empty){serverReady=false;return}adopt(r.state)});
+  }
+  p.then(function(){syncing=false;setChip("ok");if(dirty||queue.length||!serverReady)scheduleSync(50)})
+   .catch(function(){syncing=false;setChip("err")});
+}
+function startSync(){
+  if(!SYNC_URL){setChip("local");return}
+  sync();
+  setInterval(function(){if(!document.hidden&&!syncing&&!dirty&&!queue.length)sync()},6000);
+  document.addEventListener("visibilitychange",function(){if(!document.hidden)scheduleSync(0)});
+}
+
+/* Tampilan */
+function refreshUI(){
+  var a=document.activeElement;if(a&&a.isContentEditable)return;
+  fillDatalist();
+  if(curPage==="stok")renderStok();
+  if(curPage==="pecah"){renderPecah();renderAktif()}
+}
+function fillDatalist(){document.getElementById("dl-items").innerHTML=state.items.map(function(it){return '<option value="'+esc(it.name)+'">'}).join("")}
+
+function renderStok(){
+  var q=norm(document.getElementById("q-stok").value),tb=document.getElementById("stok-body");
+  var rows=state.items.filter(function(it){return !q||norm(it.name).indexOf(q)>-1});
+  tb.innerHTML=rows.map(function(it,i){
+    var st=stokNow(it);
+    return '<tr data-id="'+it.id+'"><td>'+(i+1)+'</td>'+
+      '<td class="ed" contenteditable="true" spellcheck="false" data-f="name">'+esc(it.name)+'</td>'+
+      '<td class="num ed" contenteditable="true" inputmode="numeric" data-f="aktif">'+aktifNow(it)+'</td>'+
+      '<td class="num'+(st<0?' neg':'')+'" data-c="stok">'+st+'</td>'+
+      '<td class="num ed" contenteditable="true" inputmode="numeric" data-f="total">'+it.total+'</td>'+
+      '<td><button class="del" aria-label="Hapus">&times;</button></td></tr>';
+  }).join("")||'<tr><td colspan="6">Tidak ada data.</td></tr>';
+  updateStokFoot();
+}
+function updateStokFoot(){
+  var a=0,s=0,t=0;state.items.forEach(function(it){a+=aktifNow(it);s+=stokNow(it);t+=it.total});
+  document.getElementById("stok-foot").innerHTML='<tr><td colspan="2">Total ('+state.items.length+' alat)</td><td class="num">'+a+'</td><td class="num">'+s+'</td><td class="num">'+t+'</td><td></td></tr>';
+}
+function renderPecah(){
+  var q=norm(document.getElementById("q-pecah").value),tb=document.getElementById("pecah-body");
+  var rows=state.rec.filter(function(r){return !q||norm(r.name+" "+r.bulan+" "+r.analis).indexOf(q)>-1});
+  tb.innerHTML=rows.map(function(r,i){
+    return '<tr data-id="'+r.id+'"><td>'+(i+1)+'</td>'+
+      '<td class="ed" contenteditable="true" spellcheck="false" data-f="bulan">'+esc(r.bulan)+'</td>'+
+      '<td class="ed" contenteditable="true" spellcheck="false" data-f="name">'+esc(r.name)+'</td>'+
+      '<td class="num ed" contenteditable="true" inputmode="numeric" data-f="qty">'+r.qty+'</td>'+
+      '<td class="ed" contenteditable="true" spellcheck="false" data-f="analis">'+esc(r.analis)+'</td>'+
+      '<td><button class="del" aria-label="Hapus">&times;</button></td></tr>';
+  }).join("")||'<tr><td colspan="6">Tidak ada data.</td></tr>';
+  updatePecahFoot();
+}
+function updatePecahFoot(){
+  var t=state.rec.reduce(function(s,r){return s+(+r.qty||0)},0);
+  document.getElementById("pecah-foot").innerHTML='<tr><td colspan="3">Total ('+state.rec.length+' catatan)</td><td class="num">'+t+'</td><td colspan="2"></td></tr>';
+}
+function renderAktif(){
+  var q=norm(document.getElementById("q-aktif").value),tb=document.getElementById("aktif-body");
+  var rows=state.items.filter(function(it){return (aktifNow(it)>0||pecahBaru(it.id)>0)&&(!q||norm(it.name).indexOf(q)>-1)});
+  var a0=0,pb=0,an=0;
+  tb.innerHTML=rows.map(function(it,i){
+    var p=pecahBaru(it.id),n=it.aktif-p;a0+=it.aktif;pb+=p;an+=n;
+    return '<tr><td>'+(i+1)+'</td><td>'+esc(it.name)+'</td><td class="num">'+it.aktif+'</td><td class="num">'+p+'</td><td class="num'+(n<0?' neg':'')+'">'+n+'</td></tr>';
+  }).join("")||'<tr><td colspan="5">Tidak ada data.</td></tr>';
+  document.getElementById("aktif-foot").innerHTML='<tr><td colspan="2">Total</td><td class="num">'+a0+'</td><td class="num">'+pb+'</td><td class="num">'+an+'</td></tr>';
+}
+
+/* Edit sel di tabel */
+document.getElementById("stok-body").addEventListener("focusout",function(e){
+  var td=e.target.closest("td.ed");if(!td)return;
+  var tr=td.parentNode,it=findItem(+tr.getAttribute("data-id"));if(!it)return;
+  var f=td.getAttribute("data-f"),txt=td.textContent.trim();
+  if(f==="name"){it.name=txt||it.name;td.textContent=it.name}
+  else{
+    var n=intOf(txt,f==="aktif"?aktifNow(it):it.total);
+    if(f==="aktif")it.aktif=n+pecahBaru(it.id);else it.total=n;
+    td.textContent=n;
+    var c=tr.querySelector('[data-c="stok"]'),st=stokNow(it);c.textContent=st;c.className="num"+(st<0?" neg":"");
+  }
+  touch();updateStokFoot();
+});
+document.getElementById("pecah-body").addEventListener("focusout",function(e){
+  var td=e.target.closest("td.ed");if(!td)return;
+  var r=findRec(+td.parentNode.getAttribute("data-id"));if(!r)return;
+  var f=td.getAttribute("data-f"),txt=td.textContent.trim();
+  if(f==="qty"){r.qty=Math.max(0,intOf(txt,r.qty));td.textContent=r.qty}
+  else{r[f]=txt||r[f];td.textContent=r[f]}
+  touch();updatePecahFoot();renderAktif();
+});
+["stok-body","pecah-body"].forEach(function(id){
+  var tb=document.getElementById(id);
+  tb.addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target.closest("td.ed")){e.preventDefault();e.target.blur()}});
+  tb.addEventListener("click",function(e){
+    var d=e.target.closest(".del");if(!d)return;
+    var idn=+d.closest("tr").getAttribute("data-id");
+    if(!confirm("Hapus baris ini?"))return;
+    if(id==="stok-body")state.items=state.items.filter(function(x){return x.id!==idn});
+    else state.rec=state.rec.filter(function(x){return x.id!==idn});
+    touch();if(id==="stok-body")renderStok();else{renderPecah();renderAktif()}
+  });
+});
+document.getElementById("q-stok").addEventListener("input",renderStok);
+document.getElementById("q-pecah").addEventListener("input",renderPecah);
+document.getElementById("q-aktif").addEventListener("input",renderAktif);
+document.getElementById("add-item").addEventListener("click",function(){
+  document.getElementById("q-stok").value="";
+  var it={id:state.nextItem++,name:"Alat baru",aktif:0,total:0};state.items.push(it);touch();renderStok();flashRow("stok-body",it.id,true);
+});
+document.getElementById("add-rec").addEventListener("click",function(){
+  document.getElementById("q-pecah").value="";
+  var r={id:state.nextRec++,bulan:monthLabel(),name:"Nama alat",qty:1,analis:lastAnalis()||"-",item:null};state.rec.push(r);touch();renderPecah();flashRow("pecah-body",r.id,true);
+});
+function flashRow(tbId,id,focus){
+  var tr=document.querySelector("#"+tbId+' tr[data-id="'+id+'"]');if(!tr)return;
+  tr.scrollIntoView({block:"center",behavior:"smooth"});
+  tr.classList.add("flash");setTimeout(function(){tr.classList.remove("flash")},1900);
+  if(focus){var c=tr.querySelector('td.ed[data-f="name"]');if(c){c.focus();var rg=document.createRange();rg.selectNodeContents(c);var sl=getSelection();sl.removeAllRanges();sl.addRange(rg)}}
+}
+
+/* CSV */
+function csvCell(v){v=String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function downloadCsv(name,rows){
+  var t="\ufeff"+rows.map(function(r){return r.map(csvCell).join(",")}).join("\r\n");
+  var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv;charset=utf-8"}));a.download=name;
+  document.body.appendChild(a);a.click();a.remove();
+}
+document.getElementById("csv-items").addEventListener("click",function(){
+  downloadCsv("stok-alat-gelas.csv",[["Nama Alat","Aktif","Stok","Total"]].concat(state.items.map(function(it){return[it.name,aktifNow(it),stokNow(it),it.total]})));
+});
+document.getElementById("csv-recs").addEventListener("click",function(){
+  downloadCsv("alat-gelas-pecah.csv",[["Bulan","Nama Alat","Qty","Analis"]].concat(state.rec.map(function(r){return[r.bulan,r.name,r.qty,r.analis]})));
+});
+
+/* Modal dan QR */
+function openModal(html){document.getElementById("sheet").innerHTML=html;document.getElementById("modal").classList.remove("hidden")}
+function closeModal(){document.getElementById("modal").classList.add("hidden")}
+document.getElementById("modal").addEventListener("click",function(e){if(e.target.id==="modal"||e.target.closest("[data-close]"))closeModal()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeModal()});
+function qrSvg(url){try{var q=qrcode(0,"M");q.addData(url);q.make();return q.createSvgTag(8,2)}catch(e){return ""}}
+function openQr(kind){
+  var url=location.href.split("#")[0]+"#input-"+kind,title=kind==="stok"?"Input Stok Alat Gelas":"Input Alat Gelas Pecah",svg=qrSvg(url);
+  var warn=/^file:/.test(url)?'<p class="sub" style="color:#b00020">Anda membuka file dari perangkat. Buka website lewat link GitHub Pages agar QR ini bisa dipindai HP lain.</p>':"";
+  openModal('<h3>QR '+title+'</h3><p class="sub">Scan dengan kamera HP untuk membuka form.</p>'+warn+
+    '<div class="qr">'+(svg||'<p class="sub">QR belum termuat. Periksa koneksi internet.</p>')+'</div><p class="urlline">'+esc(url)+'</p>'+
+    '<div class="row"><button class="btn pri" id="qr-print">Cetak</button><button class="btn" id="qr-copy">Salin link</button><button class="btn" data-close>Tutup</button></div>');
+  document.getElementById("qr-print").addEventListener("click",function(){
+    var pa=document.getElementById("printArea");
+    pa.innerHTML='<h1>'+title+'</h1><div class="qrp">'+svg+'</div><p>Scan dengan kamera HP</p><p>'+esc(url)+'</p>';
+    setTimeout(function(){window.print()},150);
+  });
+  document.getElementById("qr-copy").addEventListener("click",function(){
+    try{navigator.clipboard.writeText(url).then(function(){toast("Link disalin")},function(){toast("Gagal menyalin")})}catch(e){toast("Gagal menyalin")}
+  });
+}
+window.addEventListener("afterprint",function(){document.getElementById("printArea").innerHTML=""});
+document.addEventListener("click",function(e){var b=e.target.closest("[data-qr]");if(b)openQr(b.getAttribute("data-qr"))});
+
+/* Form HP: alat pecah */
+var fpIni=document.getElementById("fp-ini"),fpName=document.getElementById("fp-name"),fpQty=document.getElementById("fp-qty"),fpErr=document.getElementById("fp-err");
+fpIni.addEventListener("input",function(){fpIni.value=fpIni.value.replace(/[^a-zA-Z]/g,"").toUpperCase().slice(0,3)});
+document.getElementById("f-pecah").addEventListener("submit",function(e){
+  e.preventDefault();
+  var ini=fpIni.value.trim().toUpperCase(),name=fpName.value.trim().replace(/\s+/g," "),q=intOf(fpQty.value,0);
+  if(!/^[A-Z]{3}$/.test(ini)){fpErr.textContent="Inisial harus tepat 3 huruf.";fpIni.focus();return}
+  if(!name){fpErr.textContent="Isi nama alat gelas yang pecah.";fpName.focus();return}
+  if(q<1){fpErr.textContent="Jumlah minimal 1.";fpQty.focus();return}
+  fpErr.textContent="";
+  try{localStorage.setItem("andev-analis",ini)}catch(e2){}
+  submitOp({type:"pecah",ini:ini,name:name,qty:q,bulan:monthLabel()});
+  var known=!!matchItem(state,name);
+  document.getElementById("f-pecah").classList.add("hidden");
+  var d=document.getElementById("fp-done");d.classList.remove("hidden");
+  d.innerHTML='<div class="ok">&#10003;</div><h3>Tercatat</h3><p><b>'+esc(ini)+'</b> &middot; '+esc(name)+' &times; '+q+'</p>'+
+    (known?"":'<p class="fhint">Nama alat belum ada di daftar, dicatat apa adanya.</p>')+
+    (SYNC_URL?"":'<p class="fhint">Mode lokal: data tersimpan di perangkat ini saja.</p>')+
+    '<button class="btn pri big" id="fp-again" type="button">Input lagi</button>';
+  document.getElementById("fp-again").addEventListener("click",function(){
+    d.classList.add("hidden");document.getElementById("f-pecah").classList.remove("hidden");fpName.value="";fpQty.value="1";fpName.focus();
+  });
+});
+
+/* Form HP: stok */
+var fsName=document.getElementById("fs-name"),fsQty=document.getElementById("fs-qty"),fsErr=document.getElementById("fs-err"),fsInfo=document.getElementById("fs-info");
+fsName.addEventListener("input",function(){
+  var it=matchItem(state,fsName.value);
+  fsInfo.textContent=it?"Total saat ini: "+it.total+" (Aktif "+aktifNow(it)+", Stok "+stokNow(it)+")":(fsName.value.trim()?"Alat baru, akan ditambahkan ke daftar.":"");
+});
+document.getElementById("f-stok").addEventListener("submit",function(e){
+  e.preventDefault();
+  var name=fsName.value.trim().replace(/\s+/g," "),q=intOf(fsQty.value,0);
+  if(!name){fsErr.textContent="Isi nama alat gelas.";fsName.focus();return}
+  if(q<1){fsErr.textContent="Total minimal 1.";fsQty.focus();return}
+  fsErr.textContent="";
+  var before=matchItem(state,name),prev=before?before.total:0;
+  submitOp({type:"stok",name:name,qty:q});
+  var it=matchItem(state,name);
+  document.getElementById("f-stok").classList.add("hidden");
+  var d=document.getElementById("fs-done");d.classList.remove("hidden");
+  d.innerHTML='<div class="ok">&#10003;</div><h3>Tercatat</h3><p>'+esc(it.name)+' <b>+'+q+'</b></p><p class="fhint">Total: '+prev+' &rarr; '+it.total+(before?"":" (alat baru)")+'</p>'+
+    (SYNC_URL?"":'<p class="fhint">Mode lokal: data tersimpan di perangkat ini saja.</p>')+
+    '<button class="btn pri big" id="fs-again" type="button">Input lagi</button>';
+  document.getElementById("fs-again").addEventListener("click",function(){
+    d.classList.add("hidden");document.getElementById("f-stok").classList.remove("hidden");fsName.value="";fsQty.value="";fsInfo.textContent="";fsName.focus();
+  });
+});
+window.addEventListener("storage",function(e){if(e.key===KEY){state=load();refreshUI()}});
+function initTables(){
+  fillDatalist();renderStok();renderPecah();renderAktif();
+  fpIni.value=lastAnalis().replace(/[^A-Za-z]/g,"").toUpperCase().slice(0,3);
+  startSync();
 }
 
 var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -269,11 +633,16 @@ var busy=false;
 function rnd(a,b){return a+Math.random()*(b-a)}
 
 function show(v){
-  ["home","stok","pecah"].forEach(function(id){
+  v=({"input-stok":"form-stok","input-pecah":"form-pecah"})[v]||v;
+  ["home","stok","pecah","form-stok","form-pecah"].forEach(function(id){
     var e=document.getElementById(id),on=id===(v||"home");
     e.classList.toggle("hidden",!on);
     if(on&&id!=="home"&&!reduce){e.classList.remove("enter");void e.offsetWidth;e.classList.add("enter")}
   });
+  curPage=v||"home";
+  if(curPage==="stok")renderStok();
+  if(curPage==="pecah"){renderPecah();renderAktif()}
+  if(curPage==="form-stok"||curPage==="form-pecah")fillDatalist();
   window.scrollTo(0,0);
 }
 function setHash(v){
@@ -441,7 +810,7 @@ if(window.matchMedia&&window.matchMedia("(hover:hover) and (pointer:fine)").matc
   })(0);
 }
 
-build();
+initTables();
 show(location.hash.slice(1));
 </script>
 </body>
